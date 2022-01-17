@@ -1,6 +1,6 @@
 import React from 'react'
 
-function User({ user, onRemove, onToggle }) {
+const User = ({ user, onRemove, onToggle }) => {
   const userStyle = {
     cursor: 'pointer',
     color: user.active ? 'green' : 'black'
@@ -30,4 +30,4 @@ function UserList({ users, onRemove, onToggle }) {
   )
 }
 
-export default UserList;
+export default React.memo(UserList);

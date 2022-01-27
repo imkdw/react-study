@@ -3,3 +3,6 @@
 
 ### 1일차  
 npm, yarn, CRA(create-react-app), JSX, Component(함수형, 클래스형), props  
+
+### 2일차  
+state, 이벤트 핸들링

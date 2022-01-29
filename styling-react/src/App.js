@@ -1,8 +1,8 @@
-import SassComponent from "./SassCompoenent";
+import StyleCompnent from "./StyledComponent";
 
 function App() {
   return (
-    <SassComponent />
+    <StyleCompnent />
   );
 }
 

@@ -1,7 +1,12 @@
-@import './styles/utils.scss';
-
 .SassComponent {
   display: flex;
+  background: $oc-gray-2;
+
+  // width이 768px 이라면 background 변경
+  @include media('<768px') {
+    background: $oc-gray-9;
+    ;
+  }
 
   // 일반 css에선 .SassComponent .box 와 동일
   .box {

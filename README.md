@@ -14,4 +14,7 @@ ref, 컴포넌트의 반복, 라이프사이클 이벤트
 리액트 Hooks : useState, useEffect, useReducer, useMemo, useCallback, Custom Hooks  
 컴포넌트 스타일링 : 일반 CSS, SASS/SCSS, CSSModule, styled-component  
 [Project] Todo App 만들기 : 기본 구현 및 컴포넌트 성능 최적화 - React.memo, react-virtualized 등..  
+  
+### 5일차  
+불변성유지(immer 라이브러리), react-router, [Project] 뉴스API 사용해서 뉴스뷰어 만들기  
 

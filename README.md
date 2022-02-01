@@ -19,5 +19,8 @@ ref, 컴포넌트의 반복, 라이프사이클 이벤트
 불변성유지(immer 라이브러리), react-router, [Project] 뉴스API 사용해서 뉴스뷰어 만들기  
   
 ### 6일차  
-상태관리 : Context API, Redux with VanilaJS, Redut with React(30%)  
+상태관리 : Context API, Redux with VanilaJS
+
+### 7일차
+상태관리 : Redux with React, Redux Middleware ( 이해가 도저히 안되서 추후 재학습 하기로함.. )
 

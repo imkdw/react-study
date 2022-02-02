@@ -25,5 +25,6 @@ ref, 컴포넌트의 반복, 라이프사이클 이벤트
 상태관리 : Redux with React, Redux Middleware ( 이해가 도저히 안되서 추후 재학습 하기로함.. )
   
 ### 8일차  
-Server Side Rendering (동일하게 너무 어려워서 일단 넘어가기로함.. )  
+코드 스플리팅, Server Side Rendering (너무 어려워서 일단 넘어가기로함.. ),  
+[Backend] Node.js Koa 프레임워크, mongoDB, mongoose, REST API  
 

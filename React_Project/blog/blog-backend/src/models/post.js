@@ -10,6 +10,10 @@ const PostSchema = new Schema({
   publishedDate: { // 작성일
     type: Date,
     default: Date.now, // 기본값을 지금 날짜로
+  },
+  user: {
+    _id: mongoose.Types.ObjectId,
+    username: String
   }
 });
 

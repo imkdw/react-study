@@ -8,7 +8,6 @@ const { ObjectId } = mongoose.Types;
 
 export const checkObjectId = (ctx, next) => {
   const { id } = ctx.params;
-  console.log(id);
   if (!ObjectId.isValid(id)) {
     ctx.status = 400;
     return;
@@ -43,11 +42,11 @@ export const write = async ctx => {
   // error가 없었다면 요청받은 데이터를 db에 저장
   const { title, body, tags } = ctx.request.body;
   const post = new Post({
-    title, body, tags
+    title, body, tags, user: ctx.state.user,
   });
   try {
     await post.save();
-    ctx.body = post;
+    ctx.body = post; 12313.
   } catch (e) {
     ctx.throw(500, e);
   }

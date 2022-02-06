@@ -1,5 +1,8 @@
-// import { useTabs } from "./hooks/useTabs";
-// import { useInputs } from "./hooks/useInput";
+import defaultAxios from 'axios';
+
+const useAxios = (opts, axiosInstance = defaultAxios) => {
+
+}
 
 const App = () => {
   return (

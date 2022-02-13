@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 const TodoItem = ({ todo, onToggle, onRemove }) => {
   return (
     <div>
@@ -7,29 +9,34 @@ const TodoItem = ({ todo, onToggle, onRemove }) => {
         checked={todo.done}
         readOnly
       />
-      <span style={{ textDecoration: todo.done ? 'line-through' : 'none' }}>
-        {todo.text}
-      </span>
+      <span
+        style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
+      >{todo.text}</span>
       <button onClick={() => onRemove(todo.id)}>삭제</button>
     </div>
-  )
-}
+  );
+};
 
 const Todos = ({
   input, todos, onChangeInput, onInsert, onToggle, onRemove
 }) => {
-  const onSubmit = e => {
-    e.preventDefault();
+  const inputRef = useRef();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
     onInsert(input);
     onChangeInput('');
-  }
+    inputRef.current.focus();
+  };
 
-  const onChange = e => onChangeInput(e.target.value);
+  const onChange = (event) => {
+    onChangeInput(event.target.value);
+  }
 
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input value={input} onChange={onChange} />
+        <input type="text" value={input} onChange={onChange} ref={inputRef} />
         <button type="submit">등록</button>
       </form>
       <div>
@@ -43,7 +50,7 @@ const Todos = ({
         ))}
       </div>
     </div>
-  );
+  )
 };
 
 export default Todos;

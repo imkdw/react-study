@@ -18,7 +18,7 @@ export const useScroll = () => {
     return () => {
       window.removeEventListener("scroll", onScroll);
     }
-  }, []);
+  }, [state]);
 
   return state;
 };

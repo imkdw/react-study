@@ -15,6 +15,8 @@ import { useCallback } from "react";
 const CounterContainer = () => {
   const number = useSelector((state) => state.counter.number);
   const dispatch = useDispatch();
+
+  // useCallback hooks를 사용하여 컴포넌트 최적화
   const onIncrease = useCallback(() => dispatch(increase()), [dispatch]);
   const onDecrease = useCallback(() => dispatch(decrease()), [dispatch]);
   return (

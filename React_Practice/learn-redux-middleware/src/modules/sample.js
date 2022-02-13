@@ -1,29 +1,47 @@
 import { handleActions } from "redux-actions";
-import * as api from '../lib/api';
+import * as api from "../lib/api";
+import produce from "immer";
 
-// 액션 타입정의, 한 요청당 3개를 만들어야함
-const GET_POST = 'sample/GET_POST';
-const GET_POST_SUCCESS = 'sample/GET_POST_SUCCESS';
-const GET_POST_FAILURE = 'sample/GET_POST_FAILURE';
+const GET_POST = "sample/GET_POST";
+const GET_POST_SUCCESS = "sample/GET_POST_SUCCESS";
+const GET_POST_FAILURE = "sample/GET_POST_FAILURE";
 
-const GET_USERS = 'sample/GET_USERS';
-const GET_USERS_SUCCESS = 'sample/GET_USERS_SUCCESS';
-const GET_USERS_FAILURE = 'sample/GET_USERS_FAILURE';
+const GET_USERS = "sample/GET_USERS";
+const GET_USERS_SUCCESS = "sample/GET_USERS_SUCCESS";
+const GET_USERS_FAILURE = "sample/GET_USERS_FAILURE";
 
-// thunk 함수 생성
-export const getPost = id => async dispatch => {
+// thunk 함수 생성, 함수 내부에서는 시작, 성공, 실패에 따른 다른 액션을 디스패치
+export const getPost = (id) => async (dispatch) => {
   dispatch({ type: GET_POST });
   try {
     const response = await api.getPost(id);
     dispatch({
       type: GET_POST_SUCCESS,
-      payload: response.data
+      payload: response.data,
     });
   } catch (e) {
     dispatch({
       type: GET_POST_FAILURE,
       payload: e,
-      error: true
+      error: true,
+    });
+    throw e;
+  }
+};
+
+export const getUsers = (id) => async (dispatch) => {
+  dispatch({ type: GET_USERS });
+  try {
+    const response = await api.getUsers(id);
+    dispatch({
+      type: GET_USERS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: GET_USERS_FAILURE,
+      payload: e,
+      error: true,
     });
     throw e;
   }
@@ -32,60 +50,26 @@ export const getPost = id => async dispatch => {
 const initialState = {
   loading: {
     GET_POST: false,
-    GET_USERS: false
+    GET_USERS: false,
   },
   post: null,
-  users: null
+  users: null,
 };
 
-const sample = handleActions(
-  {
-    [GET_POST]: state => ({
-      ...state,
-      loading: {
-        ...state.loading,
-        GET_POST: true // 요청을 시작함
-      }
-    }),
-    [GET_POST_SUCCESS]: (state, action) => ({
-      ...state,
-      loading: {
-        ...state.loading,
-        GET_POST: false // 요청 완료
-      },
-      post: action.payload
-    }),
-    [GET_POST_FAILURE]: (state, action) => ({
-      ...state,
-      loading: {
-        ...state.loading,
-        GET_POST: false // 요청완료
-      }
-    }),
-    [GET_USERS]: state => ({
-      ...state,
-      loading: {
-        ...state.loading,
-        GET_USERS: true
-      }
-    }),
-    [GET_USERS_SUCCESS]: (state, action) => ({
-      ...state,
-      loading: {
-        ...state.loading,
-        GET_USERS: false // 완료
-      },
-      users: action.payload
-    }),
-    [GET_USERS_FAILURE]: (state, action) => ({
-      ...state,
-      loading: {
-        ...state.loading,
-        GET_USERS: false
-      },
-    })
-  },
-  initialState
-);
-
-export default sample;
+const sample = handleActions({
+  [GET_POST]: (state) => ({
+    ...state,
+    loading: {
+      ...state.loading,
+      GET_POST: true, // 요청 시작
+    },
+  }),
+  [GET_POST_SUCCESS]: (state, { paylood: post }) => ({
+    ...state,
+    loading: {
+      ...state.loading,
+      GET_POST: false, // 요청 완료
+    },
+    post: post,
+  }),
+});

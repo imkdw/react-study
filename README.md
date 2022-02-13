@@ -22,9 +22,12 @@ ref, 컴포넌트의 반복, 라이프사이클 이벤트
 상태관리 : Context API, Redux with VanilaJS
 
 ### 7일차
-상태관리 : Redux with React, Redux Middleware ( 이해가 도저히 안되서 추후 재학습 하기로함.. )
+상태관리 : Redux with React, Redux Middleware
   
 ### 8일차  
 코드 스플리팅, Server Side Rendering (너무 어려워서 일단 넘어가기로함.. ),  
 [Backend] Node.js Koa 프레임워크, mongoDB, mongoose, REST API  
+  
+### 그 이후..  
+커뮤니티 프로젝트 이전에 개념부분과 작은 프로젝트를 좀더 경험후 진행할 예정.
 

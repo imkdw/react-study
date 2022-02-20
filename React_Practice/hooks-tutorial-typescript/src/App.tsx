@@ -1,8 +1,8 @@
 import React from "react";
-import ReducerSample from "./ReducerSample";
+import Todo from "./components/Todo";
 
 const App: React.FC = () => {
-  return <ReducerSample />;
+  return <Todo />;
 };
 
 export default App;

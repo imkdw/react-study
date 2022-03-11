@@ -1,17 +1,53 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
+import { auth } from "firebaseInstance";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const Auth = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [account, setAccount] = useState({
+    email: "",
+    password: "",
+  });
+  const [newAccount, setNewAccount] = useState(true);
+  const [error, setError] = useState("");
 
-  const onChange = (event: Event): void => {
-    const name = (event.target as HTMLInputElement).value;
-    console.log(name);
+  const { email, password } = account;
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const {
+      target: { name, value },
+    } = event;
+    setAccount({
+      ...account,
+      [name]: value,
+    });
   };
 
-  const onSubmit = (event: React.SyntheticEvent): void => {
-    console.log(event.target);
+  // TODO: try ~ catch 에서 catch(e) 객체 이벤트 any -> ?? 변경하기
+  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
+    if (newAccount) {
+      try {
+        const data = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        console.log(data);
+      } catch (e: any) {
+        console.error(e.message);
+      }
+    } else {
+      try {
+        const data = await signInWithEmailAndPassword(auth, email, password);
+        console.log(data);
+      } catch (e: any) {
+        console.error(e.message);
+      }
+    }
   };
 
   return (
@@ -35,6 +71,7 @@ const Auth = () => {
         />
         <button type="submit">Log In</button>
       </form>
+      {error && <div>{error}</div>}
       <div>
         <button>Login with Google</button>
         <button>Login With Github</button>

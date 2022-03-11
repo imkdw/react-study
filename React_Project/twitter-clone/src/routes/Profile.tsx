@@ -1,7 +1,15 @@
-import React from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "firebaseInstance";
 
 const Profile = () => {
-  return <span>Profile</span>;
+  const onLogOutClick = async () => {
+    await signOut(auth);
+  };
+  return (
+    <>
+      <button onClick={onLogOutClick}>Logout</button>
+    </>
+  );
 };
 
 export default Profile;

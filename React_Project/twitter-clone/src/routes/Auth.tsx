@@ -1,9 +1,13 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, MouseEvent } from "react";
 import { useState } from "react";
 import { auth } from "firebaseInstance";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithPopup,
+  AuthProvider,
 } from "firebase/auth";
 
 const Auth = () => {
@@ -26,8 +30,7 @@ const Auth = () => {
     });
   };
 
-  // TODO: try ~ catch 에서 catch(e) 객체 이벤트 any -> ?? 변경하기
-  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+  async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
     if (newAccount) {
       try {
@@ -37,18 +40,34 @@ const Auth = () => {
           password
         );
         console.log(data);
-      } catch (e: any) {
-        console.error(e.message);
+      } catch (error: any) {
+        setError(error.message);
       }
     } else {
       try {
         const data = await signInWithEmailAndPassword(auth, email, password);
         console.log(data);
-      } catch (e: any) {
-        console.error(e.message);
+      } catch (error: any) {
+        setError(error.message);
       }
     }
-  };
+  }
+
+  const toggleAccount = () => setNewAccount(!newAccount);
+
+  async function onSocialClick(event: MouseEvent<HTMLButtonElement>) {
+    const { name } = event.currentTarget;
+    let provider = null;
+    if (name === "google") {
+      provider = new GoogleAuthProvider();
+    } else if (name === "github") {
+      provider = new GithubAuthProvider();
+    }
+
+    if (provider !== null) {
+      await signInWithPopup(auth, provider);
+    }
+  }
 
   return (
     <div>
@@ -69,12 +88,17 @@ const Auth = () => {
           value={password}
           onChange={onChange}
         />
-        <button type="submit">Log In</button>
+        <button type="submit">{newAccount ? "Sign up" : "Login"}</button>
       </form>
       {error && <div>{error}</div>}
+      <span onClick={toggleAccount}>{newAccount ? "sign up" : "Login"}</span>
       <div>
-        <button>Login with Google</button>
-        <button>Login With Github</button>
+        <button onClick={onSocialClick} name="google">
+          Login with Google
+        </button>
+        <button onClick={onSocialClick} name="github">
+          Login With Github
+        </button>
       </div>
     </div>
   );

@@ -14,18 +14,23 @@ const App: React.FC = () => {
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
+          email: user.email,
         });
-        // console.log(user);
       } else {
         setIsLoggedIn(false);
       }
 
       setInit(true);
     });
-  });
+  }, []);
 
   const refreshUser = () => {
-    setUserObj(auth.currentUser);
+    const user = auth.currentUser;
+    setUserObj({
+      displayName: user?.displayName,
+      uid: user?.uid,
+      email: user?.email,
+    });
   };
 
   return (

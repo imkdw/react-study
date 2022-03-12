@@ -10,7 +10,10 @@ const Navigation = ({ userObj }: any) => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/profile">{userObj.displayName}의 Profile</Link>
+          <Link to="/profile">
+            {userObj.displayName ? userObj.displayName : userObj.email}의
+            Profile
+          </Link>
         </li>
       </ul>
       <hr />

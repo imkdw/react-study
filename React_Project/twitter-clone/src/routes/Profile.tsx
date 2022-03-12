@@ -7,13 +7,10 @@ import Tweet from "components/Tweet";
 
 // TODO: Profile 컴포넌트 props 타입 지정하기
 const Profile = ({ userObj, refreshUser }: any) => {
-  console.log(auth.currentUser);
   const [myTweets, setMyTweets] = useState<any[]>([]);
-  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
-
-  const onLogOutClick = async (): Promise<void> => {
-    await signOut(auth);
-  };
+  const [newDisplayName, setNewDisplayName] = useState(
+    userObj.displayName ? userObj.displayName : userObj.email
+  );
 
   useEffect(() => {
     const getMyTweets = async () => {
@@ -32,13 +29,17 @@ const Profile = ({ userObj, refreshUser }: any) => {
     getMyTweets();
   }, []);
 
+  const onLogOutClick = async (): Promise<void> => {
+    await signOut(auth);
+  };
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     auth.currentUser &&
       (await updateProfile(auth.currentUser, {
         displayName: newDisplayName,
       }));
-    // refreshUser();
+    refreshUser();
   };
 
   const onDisplayNameChange = (event: ChangeEvent<HTMLInputElement>): void => {

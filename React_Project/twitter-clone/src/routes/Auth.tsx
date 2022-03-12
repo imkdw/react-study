@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, MouseEvent } from "react";
+import { ChangeEvent, FormEvent, MouseEvent } from "react";
 import { useState } from "react";
 import { auth } from "firebaseInstance";
 import {
@@ -7,7 +7,6 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   signInWithPopup,
-  AuthProvider,
 } from "firebase/auth";
 
 const Auth = () => {

@@ -1,7 +1,10 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { db, storage } from "firebaseInstance";
 import { collection, addDoc, onSnapshot, query } from "firebase/firestore";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import Tweet from "components/Tweet";
+import { v4 } from "uuid";
+import "routes/Home.scss";
 
 // TODO: Home 컴포넌트 Props type 지정하기
 const Home = ({ userObj }: any) => {
@@ -25,14 +28,22 @@ const Home = ({ userObj }: any) => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    //TODO: Bucket에 이미지 업로드 기능 구현필요 22.03.12
+    const storageRef = ref(storage, `${userObj.uid}/${v4()}`);
+    try {
+      await uploadString(storageRef, file, "data_url");
+      const downloadUrl = await getDownloadURL(storageRef);
+      await addDoc(collection(db, "tweets"), {
+        text: tweet,
+        createAt: Date.now(),
+        creatorId: userObj.uid,
+        fileUrl: downloadUrl,
+      });
+      setFile(null);
+    } catch (e: any) {
+      console.error(e);
+    }
 
-    // await addDoc(collection(db, "tweets"), {
-    //   text: tweet,
-    //   createAt: Date.now(),
-    //   creatorId: userObj.uid,
-    // });
-    // setTweet("");
+    setTweet("");
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -41,17 +52,14 @@ const Home = ({ userObj }: any) => {
   };
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.target;
+    const files = event.currentTarget.files;
     const theFile = files![0];
-    const reader = new FileReader();
 
-    // readAsDataURL 에서 읽기가 완료되면 onload 이벤트가 실행된다.
-    // 이미지가 blob 형태의 url로 변환됨
-    // TODO: finishEvent 타입 지정
-    reader.onload = (finishEvent: any) => {
-      const { result } = finishEvent.target;
-      setFile(result);
-    };
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setFile(reader.result);
+    });
+
     reader.readAsDataURL(theFile);
   };
 
@@ -61,19 +69,30 @@ const Home = ({ userObj }: any) => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="tweet-form">
         <input
           type="text"
           placeholder="Enter you Tweet"
           onChange={onChange}
           value={tweet}
+          className="text-input"
         />
-        <input type="file" accept="image/*" onChange={onFileChange} />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={onFileChange}
+          className="file-input"
+        />
         <button type="submit">Tweet!</button>
       </form>
-      <img src={file} alt="file" width="200px" height="200px" />
-      <button onClick={onClearFile}>Clear File</button>
-      <div>
+      {file && (
+        <>
+          <img src={file} alt="file" width="200px" height="200px" />
+          <button onClick={onClearFile}>Clear File</button>
+        </>
+      )}
+      <hr />
+      <div className="tweets">
         {tweets &&
           tweets.map((tweet) => (
             <Tweet

@@ -1,6 +1,8 @@
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { db } from "firebaseInstance";
+import { db, storage } from "firebaseInstance";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { ref, deleteObject } from "firebase/storage";
+import "routes/Tweet.scss";
 
 // TODO: Tweet 컴포넌트 props 타입 지정하기
 const Tweet = ({ tweetObj, isOwner }: any) => {
@@ -10,7 +12,12 @@ const Tweet = ({ tweetObj, isOwner }: any) => {
   const onDeleteClick = async () => {
     const ok = window.confirm("정말 트윗을 삭제할껀가요?");
     if (ok) {
+      // firestore 내부에서 트윗삭제
       await deleteDoc(doc(db, "tweets", tweetObj.id));
+
+      // storage 내부에서 사진 삭제
+      const storageRef = ref(storage, tweetObj.fileUrl);
+      await deleteObject(storageRef);
     }
   };
 
@@ -52,16 +59,22 @@ const Tweet = ({ tweetObj, isOwner }: any) => {
           <button onClick={onCancelClick}>Cancel</button>
         </>
       ) : (
-        <>
-          <h4>{tweetObj.text}</h4>
+        <div className="tweet">
+          <h3>텍스트 : {tweetObj.text}</h3>
+          <img
+            src={tweetObj.fileUrl}
+            alt={`${tweetObj.text}의 이미지`}
+            width="200px"
+            height="200px"
+          />
           {isOwner && (
-            <>
+            <div className="button-wrapper">
               <button onClick={onDeleteClick}>Delete</button>
               <button onClick={toggleEditing}>Edit</button>
-            </>
+            </div>
           )}
           <hr />
-        </>
+        </div>
       )}
     </div>
   );

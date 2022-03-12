@@ -7,17 +7,22 @@ import Navigation from "components/Navigation";
 interface RouterProps {
   isLoggedIn: boolean;
   userObj: any;
+  refreshUser: any;
 }
 
-const Router = ({ isLoggedIn, userObj }: RouterProps) => {
+// TODO: Router 컴포넌트 props 타입 지정하기
+const Router = ({ isLoggedIn, userObj, refreshUser }: RouterProps) => {
   return (
     <>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObj={userObj} />}
       <Routes>
         {isLoggedIn ? (
           <>
             <Route path="/" element={<Home userObj={userObj} />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={<Profile userObj={userObj} refreshUser={refreshUser} />}
+            />
           </>
         ) : (
           <>

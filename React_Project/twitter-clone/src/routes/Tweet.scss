@@ -1,0 +1,13 @@
+.tweet {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.button-wrapper {
+  display: flex;
+
+  button {
+    width: 50%;
+  }
+}

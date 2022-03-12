@@ -11,7 +11,10 @@ const App: React.FC = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
-        setUserObj(user);
+        setUserObj({
+          displayName: user.displayName,
+          uid: user.uid,
+        });
         // console.log(user);
       } else {
         setIsLoggedIn(false);
@@ -21,10 +24,18 @@ const App: React.FC = () => {
     });
   });
 
+  const refreshUser = () => {
+    setUserObj(auth.currentUser);
+  };
+
   return (
     <div>
       {init ? (
-        <Router isLoggedIn={isLoggedIn} userObj={userObj} />
+        <Router
+          isLoggedIn={isLoggedIn}
+          userObj={userObj}
+          refreshUser={refreshUser}
+        />
       ) : (
         "Initalizing..."
       )}

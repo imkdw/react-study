@@ -5,9 +5,9 @@ export default createGlobalStyle`
   ${reset}
 
   * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
   }
 
   body {
@@ -20,6 +20,10 @@ export default createGlobalStyle`
 
   a {
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  button {
     cursor: pointer;
   }
 

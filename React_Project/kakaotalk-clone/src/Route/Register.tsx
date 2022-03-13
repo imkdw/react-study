@@ -1,10 +1,26 @@
-import Container from "components/Container";
-import Input from "components/Input";
+import Container from "components/common/Container";
+import styled from "styled-components";
+import RegisterForm from "components/register/RegisterForm";
+import { FontawesomeSmsIcon } from "Fontawesome";
+
+const StyledHeader = styled.div`
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 30px;
+`;
 const Register = () => {
-  const bgColor = "#fff";
+  const bgColor = "#ffeb34";
   return (
     <Container bgColor={bgColor}>
-      <div className="subject">회원가입</div>
+      <StyledHeader>
+        <FontawesomeSmsIcon width="33px" height="33px" />
+        {"\u00A0"}카카오톡
+      </StyledHeader>
+      <RegisterForm />
     </Container>
   );
 };

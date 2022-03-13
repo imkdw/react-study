@@ -1,8 +1,32 @@
-import React from "react";
-import Router from "components/Router";
+import React, { useState, useEffect } from "react";
+import NoAuthRouter from "components/NoAuthRouter";
+import AuthRouter from "components/AuthRouter";
+import { firebaseAuth } from "firebaseInstance";
 
 const App: React.FC = () => {
-  return <Router />;
+  const [userObj, setUserObj] = useState<any>();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    firebaseAuth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserObj(user);
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+  }, []);
+
+  return (
+    <>
+      {isLoggedIn ? (
+        <AuthRouter userObj={userObj} />
+      ) : (
+        <NoAuthRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+      )}
+    </>
+  );
 };
 
 export default App;

@@ -21,10 +21,12 @@ export default createGlobalStyle`
   a {
     text-decoration: none;
     cursor: pointer;
+    color: #000;
   }
 
   button {
     cursor: pointer;
+    background: inherit;
   }
 
   input, button {

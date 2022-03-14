@@ -1,42 +1,17 @@
 import Contents from "components/common/Contents";
+import Header from "components/friends/Header";
+import MyProfile from "components/friends/MyProfile";
 
 interface FriendProps {
   userObj: any;
 }
+
 const Friends = ({ userObj }: FriendProps) => {
+  const { uid } = userObj;
   return (
     <Contents>
-      <div
-        style={{
-          width: "100%",
-          height: "40px",
-          background: "red",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "25px",
-            fontWeight: "bold",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          친구
-        </span>
-        <ul
-          style={{
-            width: "60px",
-            height: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <li style={{ width: "20px" }}>검색</li>
-          <li style={{ width: "20px" }}>친추</li>
-        </ul>
-      </div>
+      <Header />
+      <MyProfile uid={uid} />
     </Contents>
   );
 };

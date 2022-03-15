@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "components/common/Button";
 
 const StyledHeader = styled.div`
   width: 370px;
@@ -15,7 +16,16 @@ const StyledHeaderText = styled.span`
 `;
 
 const Header = () => {
-  return <StyledHeader></StyledHeader>;
+  const headerButtonStyle = {
+    fontSize: "16px",
+    fontWeight: "bold",
+  };
+  return (
+    <StyledHeader>
+      <StyledHeaderText>카카오톡 ID로 추가</StyledHeaderText>
+      <Button buttonStyle={headerButtonStyle}>확인</Button>
+    </StyledHeader>
+  );
 };
 
 export default Header;

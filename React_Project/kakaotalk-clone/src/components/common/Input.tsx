@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface InputProps {
   type: string;
-  name: string;
+  name?: string;
   placeholder: string;
   required: boolean;
   inputStyle: any;
@@ -25,6 +25,7 @@ interface StyleInputProps {
     borderBottom?: string;
     backgroundColor?: string;
     border?: string;
+    focus?: string;
   };
 }
 
@@ -41,6 +42,10 @@ const StyledInput = styled.input<StyleInputProps>`
   &::placeholder {
     opacity: 0.7;
     color: #bfbfbf;
+  }
+
+  &:focus {
+    border-bottom: ${(props) => props.subInputStyle?.focus};
   }
 `;
 

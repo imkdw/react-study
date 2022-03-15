@@ -170,7 +170,7 @@ const RegisterForm = () => {
         onChange={onChange}
         value={kakaoID}
       />
-      <Button value="회원가입" buttonStyle={buttonStyle} />
+      <Button buttonStyle={buttonStyle}>회원가입</Button>
       <span style={{ color: "red", fontSize: "14px", fontWeight: "bold" }}>
         {error}
       </span>

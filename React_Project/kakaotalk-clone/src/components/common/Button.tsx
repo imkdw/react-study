@@ -1,14 +1,16 @@
+import { ReactChild } from "react";
 import styled from "styled-components";
 
 interface StyleButtonProps {
   buttonStyle: {
-    width: string;
-    height: string;
-    color: string;
-    border: string;
-    fontSize: string;
-    backgroundColor: string;
-    borderRadius: string;
+    width?: string;
+    height?: string;
+    color?: string;
+    border?: string;
+    fontSize?: string;
+    backgroundColor?: string;
+    borderRadius?: string;
+    fontWeight?: string;
   };
 }
 
@@ -20,18 +22,19 @@ const StyleButton = styled.button<StyleButtonProps>`
   font-size: ${(props) => props.buttonStyle.fontSize};
   background-color: ${(props) => props.buttonStyle.backgroundColor};
   border-radius: ${(props) => props.buttonStyle.borderRadius};
+  font-weight: ${(props) => props.buttonStyle.fontWeight};
 `;
 
 interface ButtonProps {
-  value: string;
+  children: ReactChild;
   buttonStyle: any;
   onClick?(): void;
 }
 
-const Button = ({ value, buttonStyle, onClick }: ButtonProps) => {
+const Button = ({ buttonStyle, onClick, children }: ButtonProps) => {
   return (
     <StyleButton buttonStyle={buttonStyle} onClick={onClick}>
-      {value}
+      {children}
     </StyleButton>
   );
 };

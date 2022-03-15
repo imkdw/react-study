@@ -105,7 +105,7 @@ const LoginForm = () => {
             value={password}
           />
         </StyledFormInputWrapper>
-        <Button value="로그인" buttonStyle={buttonStyle} />
+        <Button buttonStyle={buttonStyle}>로그인</Button>
       </StyledLoginForm>
       <span style={{ color: "red", fontSize: "14px", fontWeight: "bold" }}>
         {error}

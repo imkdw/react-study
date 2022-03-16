@@ -1,12 +1,14 @@
 import React from "react";
-import ColorBox from "./components/ColorBox";
-import { ColorProvider } from "./context/ColorContext";
+import InputId from "./components/InputId";
+import Header from "./components/Header";
 
 const App: React.FC = () => {
   return (
-    <ColorProvider>
-      <ColorBox />
-    </ColorProvider>
+    <>
+      {/* <Header /> */}
+      <InputId />
+    </>
   );
 };
+
 export default App;

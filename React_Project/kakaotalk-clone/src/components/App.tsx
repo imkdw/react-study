@@ -21,7 +21,7 @@ const App: React.FC = () => {
   return (
     <>
       {isLoggedIn ? (
-        <AuthRouter userObj={userObj} />
+        <AuthRouter isLoggedIn={isLoggedIn} userObj={userObj} />
       ) : (
         <NoAuthRouter isLoggedIn={isLoggedIn} userObj={userObj} />
       )}

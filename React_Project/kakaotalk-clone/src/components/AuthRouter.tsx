@@ -5,20 +5,28 @@ import Friends from "route/Friends";
 import ChatList from "route/ChatList";
 import Notice from "route/Notice";
 import AddFriend from "route/AddFriend";
+import Login from "route/Login";
 
 interface NoAuthRouterProps {
+  isLoggedIn: boolean;
   userObj: any;
 }
 
-const NoAuthRouter = ({ userObj }: NoAuthRouterProps) => {
+const NoAuthRouter = ({ isLoggedIn, userObj }: NoAuthRouterProps) => {
   return (
     <Container bgColor="#fff">
       <Routes>
-        <Route path="/" element={<ChatList userObj={userObj} />} />
-        <Route path="/friends" element={<Friends userObj={userObj} />} />
-        <Route path="/chatlist" element={<ChatList userObj={userObj} />} />
-        <Route path="/notice" element={<Notice />} />
-        <Route path="/addfriend" element={<AddFriend />} />
+        {isLoggedIn ? (
+          <>
+            <Route path="/" element={<ChatList userObj={userObj} />} />
+            <Route path="/friends" element={<Friends userObj={userObj} />} />
+            <Route path="/chatlist" element={<ChatList userObj={userObj} />} />
+            <Route path="/notice" element={<Notice />} />
+            <Route path="/addfriend" element={<AddFriend />} />
+          </>
+        ) : (
+          <Route path="/" element={<Login />} />
+        )}
       </Routes>
       <AuthRouterNav />
     </Container>

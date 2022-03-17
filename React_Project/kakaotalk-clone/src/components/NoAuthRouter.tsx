@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "route/Login";
 import Register from "route/Register";
 import ChatList from "route/ChatList";
+import AddFriend from "route/AddFriend";
 
 interface NoAuthRouterProps {
   isLoggedIn: boolean;
@@ -14,6 +15,7 @@ const NoAuthRouter = ({ isLoggedIn, userObj }: NoAuthRouterProps) => {
         <>
           <Route path="/" element={<ChatList userObj={userObj} />} />
           <Route path="/chatlist" element={<ChatList userObj={userObj} />} />
+          <Route path="/addfriend" element={<AddFriend />} />
         </>
       ) : (
         <>

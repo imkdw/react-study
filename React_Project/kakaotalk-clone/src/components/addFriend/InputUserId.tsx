@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Input from "components/common/Input";
-import { ChangeEvent, useState, createContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
+import { AddFriendContext } from "./AddFriendContext";
 
 const StyledInputWrapper = styled.div`
   width: 370px;
@@ -10,13 +11,13 @@ const StyledInputWrapper = styled.div`
 `;
 
 const InputUserId = () => {
-  const [userId, setUserId] = useState("");
-  const InputUserIdContext = createContext("");
+  const { state, actions } = useContext(AddFriendContext);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setUserId(value);
+    actions.setUserId(value);
   };
+
   const inputStyle = {
     width: "100%",
     height: "40px",
@@ -37,7 +38,7 @@ const InputUserId = () => {
         required
         inputStyle={inputStyle}
         subInputStyle={subInputStyle}
-        value={userId}
+        value={state.userId}
         onChange={onChange}
       />
     </StyledInputWrapper>

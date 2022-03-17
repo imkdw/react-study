@@ -1,13 +1,12 @@
 import React from "react";
-import InputId from "./components/InputId";
-import Header from "./components/Header";
+import Input from "./components/Input";
+import { UserProvider } from "./context/UserContext";
 
 const App: React.FC = () => {
   return (
-    <>
-      {/* <Header /> */}
-      <InputId />
-    </>
+    <UserProvider>
+      <Input />
+    </UserProvider>
   );
 };
 

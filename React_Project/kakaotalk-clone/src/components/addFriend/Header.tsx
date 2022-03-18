@@ -54,7 +54,7 @@ const Header = ({ userObj }: any) => {
     const docRef = doc(firebaseDB, "users", userObj.uid);
     const docSnap = await getDoc(docRef);
     const friends = docSnap.data()?.friends;
-    if ([...friends].includes(searchUserUid)) {
+    if ([...friends].includes(searchUserUid) || searchUserUid === userObj.uid) {
       setAlreadyFriend(true);
     } else {
       setAlreadyFriend(false);

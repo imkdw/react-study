@@ -26,7 +26,7 @@ const StyledProfile = styled.div`
 const StyledProfileImage = styled.img`
   width: 60px;
   height: 60px;
-  border-radius: 25px;
+  border-radius: 18px;
 `;
 
 const StyledInfoWrapper = styled.div`
@@ -94,7 +94,7 @@ const Profile = ({ userObj }: any) => {
     height: "30px",
     fontSize: "12px",
     backgroundColor: "#fde500",
-    borderRadius: "8px",
+    borderRadius: "5px",
   };
 
   return (

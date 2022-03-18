@@ -13,7 +13,7 @@ export const UserContext = createContext<any>({
 
 export const UserProvider = ({ children }: any) => {
   const [userId, setUserId] = useState("");
-  // const [searchResult, setSearchResult] = useState("");
+  // const [searchResult, setSearchResult] = useState("");  
 
   const value = {
     state: { userId },

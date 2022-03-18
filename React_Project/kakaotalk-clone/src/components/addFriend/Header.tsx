@@ -1,8 +1,16 @@
 import styled from "styled-components";
 import Button from "components/common/Button";
 import { useContext } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  query,
+  where,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { firebaseDB } from "firebaseInstance";
+import { AddFriendContext } from "./AddFriendContext";
 
 const StyledHeader = styled.div`
   width: 370px;
@@ -18,11 +26,39 @@ const StyledHeaderText = styled.span`
   align-items: center;
 `;
 
-const Header = () => {
-  const onSearchUser = async (): Promise<void> => {
-    // const docRef = doc(firebaseDB, "users", state.userId);
-    // const docSnap = await getDoc(docRef);
-    // console.log(docSnap);
+const Header = ({ userObj }: any) => {
+  const { state, actions } = useContext(AddFriendContext);
+  const { userId, searchResult } = state;
+  const { setSearchResult, setSearchError, setAlreadyFriend } = actions;
+
+  const onSearchUser = async () => {
+    const usersRef = collection(firebaseDB, "users");
+    const q = query(usersRef, where("kakaoID", "==", userId));
+    const docSnap = await getDocs(q);
+
+    // 유저 검색결과가 없으면 searchError true로 변경해서 에러 메세지 렌더링
+    if (docSnap.docs.length === 0) {
+      setSearchError(true);
+    } else {
+      // 검색 결과가 있다면 searchResult에다가 검색데이터 할당
+      const searchUser = docSnap.docs[0].data();
+      const searchUserUid = searchUser.uid;
+      await setSearchResult({ ...searchUser });
+      // 에러 메세지가 렌더링되지 않도록 false 처리
+      setSearchError(false);
+      getAlreadyFriend(searchUserUid);
+    }
+  };
+
+  const getAlreadyFriend = async (searchUserUid: string) => {
+    const docRef = doc(firebaseDB, "users", userObj.uid);
+    const docSnap = await getDoc(docRef);
+    const friends = docSnap.data()?.friends;
+    if ([...friends].includes(searchUserUid)) {
+      setAlreadyFriend(true);
+    } else {
+      setAlreadyFriend(false);
+    }
   };
 
   const headerButtonStyle = {

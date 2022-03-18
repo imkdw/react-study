@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import Button from "components/common/Button";
+import { useContext, MouseEvent } from "react";
+import { AddFriendContext } from "./AddFriendContext";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { firebaseDB } from "firebaseInstance";
 
 const StyledProfileWrapper = styled.div`
   width: 370px;
@@ -52,7 +56,39 @@ const StyledButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-const Profile = () => {
+const StyledErrorMessage = styled.div`
+  font-size: 14px;
+  color: lightgray;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Profile = ({ userObj }: any) => {
+  const { state, actions } = useContext(AddFriendContext);
+  const { searchResult } = state;
+  const { setAlreadyFriend } = actions;
+  const { message, nickname, profile } = state.searchResult;
+
+  const onClick = async (
+    event: MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    const { textContent } = event.currentTarget;
+    if (textContent === "1:1 채팅") {
+      console.log("1:1 채팅");
+    } else if (textContent === "친구추가") {
+      const loggedInUserRef = doc(firebaseDB, "users", userObj.uid);
+
+      await updateDoc(loggedInUserRef, {
+        friends: arrayUnion(searchResult.uid),
+      });
+
+      setAlreadyFriend(true);
+    }
+  };
+
   const addButtonStyle = {
     width: "80px",
     height: "30px",
@@ -63,18 +99,28 @@ const Profile = () => {
 
   return (
     <>
-      <StyledProfileWrapper>
-        <StyledProfile>
-          <StyledProfileImage src="https://firebasestorage.googleapis.com/v0/b/kakaotalk-clone-beed5.appspot.com/o/profile.png?alt=media&token=1e2f2a43-a70c-46a8-aa33-9a3d8ab45e5f" />
-          <StyledInfoWrapper>
-            <StyleNickname>닉네임</StyleNickname>
-            <StyledMessage>상태메세지 입니다.</StyledMessage>
-          </StyledInfoWrapper>
-          <StyledButtonWrapper>
-            <Button buttonStyle={addButtonStyle}>1:1 채팅</Button>
-          </StyledButtonWrapper>
-        </StyledProfile>
-      </StyledProfileWrapper>
+      {state.searchError ? (
+        <StyledErrorMessage>검색 결과가 없습니다.</StyledErrorMessage>
+      ) : (
+        <>
+          {state.searchResult && (
+            <StyledProfileWrapper>
+              <StyledProfile>
+                <StyledProfileImage src={profile} />
+                <StyledInfoWrapper>
+                  <StyleNickname>{nickname}</StyleNickname>
+                  <StyledMessage>{message}</StyledMessage>
+                </StyledInfoWrapper>
+                <StyledButtonWrapper>
+                  <Button buttonStyle={addButtonStyle} onClick={onClick}>
+                    {state.alreadyFriend ? "1:1 채팅" : "친구추가"}
+                  </Button>
+                </StyledButtonWrapper>
+              </StyledProfile>
+            </StyledProfileWrapper>
+          )}
+        </>
+      )}
     </>
   );
 };

@@ -28,7 +28,7 @@ const StyleButton = styled.button<StyleButtonProps>`
 interface ButtonProps {
   children: ReactChild;
   buttonStyle: any;
-  onClick?(): void;
+  onClick?(event?: any): void;
 }
 
 const Button = ({ buttonStyle, onClick, children }: ButtonProps) => {

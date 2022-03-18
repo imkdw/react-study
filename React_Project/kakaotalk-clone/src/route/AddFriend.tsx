@@ -1,14 +1,15 @@
 import Header from "components/addFriend/Header";
 import InputUserId from "components/addFriend/InputUserId";
 import Profile from "components/addFriend/Profile";
+import { AddFriendProvider } from "components/addFriend/AddFriendContext";
 
-const AddFriend = () => {
+const AddFriend = ({ userObj }: any) => {
   return (
-    <>
-      <Header />
+    <AddFriendProvider>
+      <Header userObj={userObj} />
       <InputUserId />
-      <Profile />
-    </>
+      <Profile userObj={userObj} />
+    </AddFriendProvider>
   );
 };
 

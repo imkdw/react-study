@@ -1,5 +1,12 @@
 import { ChangeEvent, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+`;
 
 const Input = () => {
   const { state, actions } = useContext(UserContext);
@@ -10,10 +17,10 @@ const Input = () => {
   };
 
   return (
-    <div>
+    <StyledDiv>
       <input type="text" value={state.userId} onChange={onChange} />;
       <div>{state.userId}</div>
-    </div>
+    </StyledDiv>
   );
 };
 

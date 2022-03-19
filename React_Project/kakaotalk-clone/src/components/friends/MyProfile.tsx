@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { firebaseDB } from "firebaseInstance";
+import { firebaseDB } from "firebase/firebaseInstance";
 import { doc, getDoc } from "firebase/firestore";
 
 interface ImageWrapperProps {

@@ -3,7 +3,7 @@ import Button from "components/common/Button";
 import { useContext, MouseEvent } from "react";
 import { AddFriendContext } from "./AddFriendContext";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { firebaseDB } from "firebaseInstance";
+import { firebaseDB } from "firebase/firebaseInstance";
 
 const StyledProfileWrapper = styled.div`
   width: 370px;

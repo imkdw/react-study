@@ -16,7 +16,4 @@ const firebaseConfig = {
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
 export const firebaseDB = getFirestore(firebaseApp);
-export const firebaseStorage = getStorage(
-  firebaseApp,
-  "gs://kakaotalk-clone-beed5.appspot.com"
-);
+export const firebaseStorage = getStorage(firebaseApp);

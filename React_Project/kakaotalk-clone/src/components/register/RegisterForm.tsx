@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
-import { firebaseAuth, firebaseDB } from "firebaseInstance";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { firebaseAuth, firebaseDB } from "firebase/firebaseInstance";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
@@ -18,34 +18,6 @@ const StyledForm = styled.form`
 `;
 
 const RegisterForm = () => {
-  const dummyFriends = async () => {
-    for (let i = 0; i < 3; i++) {
-      const email = `test${i}@kakao.com`;
-      const password = "123456";
-      const credential = await createUserWithEmailAndPassword(
-        firebaseAuth,
-        email,
-        password
-      );
-      const { user } = credential;
-      await setDoc(doc(firebaseDB, "users", user.uid), {
-        email: user.email,
-        nickname: "test" + i,
-        uid: user.uid,
-        kakaoID: "test" + i,
-        profile:
-          "https://firebasestorage.googleapis.com/v0/b/kakaotalk-clone-beed5.appspot.com/o/profile.png?alt=media&token=1e2f2a43-a70c-46a8-aa33-9a3d8ab45e5f",
-        message: "테스트계정 " + i + "번 입니다.",
-      });
-
-      console.log(email, "생성완료");
-    }
-  };
-
-  useEffect(() => {
-    dummyFriends();
-  }, []);
-
   const navigate = useNavigate();
 
   const inputStyle = {

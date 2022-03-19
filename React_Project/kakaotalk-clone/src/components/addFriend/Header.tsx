@@ -9,7 +9,7 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
-import { firebaseDB } from "firebaseInstance";
+import { firebaseDB } from "firebase/firebaseInstance";
 import { AddFriendContext } from "./AddFriendContext";
 
 const StyledHeader = styled.div`

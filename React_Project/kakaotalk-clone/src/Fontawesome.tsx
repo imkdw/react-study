@@ -9,6 +9,8 @@ import {
   faXmark,
   faPenToSquare,
   faArrowLeft,
+  faPencil,
+  faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 
 interface IconProps {
@@ -59,4 +61,12 @@ export const FontawesomArrowLeftIcon = ({
   return (
     <FontAwesomeIcon icon={faArrowLeft} style={{ width, height, color }} />
   );
+};
+
+export const FontawesomPencilIcon = ({ width, height, color }: IconProps) => {
+  return <FontAwesomeIcon icon={faPencil} style={{ width, height, color }} />;
+};
+
+export const FontawesomCameraIcon = ({ width, height, color }: IconProps) => {
+  return <FontAwesomeIcon icon={faCamera} style={{ width, height, color }} />;
 };

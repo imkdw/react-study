@@ -6,12 +6,15 @@ import {
   faUser,
   faComment,
   faBell,
+  faXmark,
+  faPenToSquare,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 interface IconProps {
   width: string;
   height: string;
-  children?: any;
+  color?: string;
 }
 
 export const FontawesomeSmsIcon = ({ width, height }: IconProps) => {
@@ -30,10 +33,30 @@ export const FontawesomeUserIcon = ({ width, height }: IconProps) => {
   return <FontAwesomeIcon icon={faUser} style={{ width, height }} />;
 };
 
-export const FontawesomeCommentIcon = ({ width, height }: IconProps) => {
-  return <FontAwesomeIcon icon={faComment} style={{ width, height }} />;
+export const FontawesomeCommentIcon = ({ width, height, color }: IconProps) => {
+  return <FontAwesomeIcon icon={faComment} style={{ width, height, color }} />;
 };
 
 export const FontawesomeBellIcon = ({ width, height }: IconProps) => {
   return <FontAwesomeIcon icon={faBell} style={{ width, height }} />;
+};
+
+export const FontawesomeXMarkIcon = ({ width, height, color }: IconProps) => {
+  return <FontAwesomeIcon icon={faXmark} style={{ width, height, color }} />;
+};
+
+export const FontawesomEditIcon = ({ width, height, color }: IconProps) => {
+  return (
+    <FontAwesomeIcon icon={faPenToSquare} style={{ width, height, color }} />
+  );
+};
+
+export const FontawesomArrowLeftIcon = ({
+  width,
+  height,
+  color,
+}: IconProps) => {
+  return (
+    <FontAwesomeIcon icon={faArrowLeft} style={{ width, height, color }} />
+  );
 };

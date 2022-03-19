@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NoAuthRouter from "components/NoAuthRouter";
 import AuthRouter from "components/AuthRouter";
-import { firebaseAuth } from "firebase/firebaseInstance";
+import { firebaseAuth } from "firebaseInstance";
 
 const App: React.FC = () => {
   const [userObj, setUserObj] = useState<any>();

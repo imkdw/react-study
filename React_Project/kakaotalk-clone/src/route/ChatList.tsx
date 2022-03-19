@@ -1,4 +1,5 @@
 import Contents from "components/common/Contents";
+import AuthRouterNav from "components/AuthRouterNav";
 
 interface ChatListProps {
   userObj: any;
@@ -6,9 +7,12 @@ interface ChatListProps {
 
 const ChatList = ({ userObj }: ChatListProps) => {
   return (
-    <Contents>
-      <div>chatlist</div>
-    </Contents>
+    <>
+      <Contents>
+        <div>chatlist</div>
+      </Contents>
+      <AuthRouterNav />
+    </>
   );
 };
 

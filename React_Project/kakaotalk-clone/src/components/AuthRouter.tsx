@@ -6,6 +6,8 @@ import ChatList from "route/ChatList";
 import Notice from "route/Notice";
 import AddFriend from "route/AddFriend";
 import Login from "route/Login";
+import UserInfo from "route/UserInfo";
+import Edit from "route/Edit";
 
 interface NoAuthRouterProps {
   isLoggedIn: boolean;
@@ -26,12 +28,16 @@ const NoAuthRouter = ({ isLoggedIn, userObj }: NoAuthRouterProps) => {
               path="/addfriend"
               element={<AddFriend userObj={userObj} />}
             />
+            <Route
+              path="/userinfo/:uid"
+              element={<UserInfo userObj={userObj} />}
+            />
+            <Route path="/edit/:uid" element={<Edit />} />
           </>
         ) : (
           <Route path="/" element={<Login />} />
         )}
       </Routes>
-      <AuthRouterNav />
     </Container>
   );
 };

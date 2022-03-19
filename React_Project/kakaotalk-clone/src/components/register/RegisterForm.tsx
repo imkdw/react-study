@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
-import { firebaseAuth, firebaseDB } from "firebase/firebaseInstance";
+import { firebaseAuth, firebaseDB } from "firebaseInstance";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";

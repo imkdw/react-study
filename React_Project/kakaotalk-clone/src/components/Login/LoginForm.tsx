@@ -4,7 +4,7 @@ import Button from "components/common/Button";
 import { FormEvent, useState } from "react";
 import { ChangeEvent } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { firebaseAuth } from "firebase/firebaseInstance";
+import { firebaseAuth } from "firebaseInstance";
 import { useNavigate } from "react-router-dom";
 
 const StyledFormWrapper = styled.div`

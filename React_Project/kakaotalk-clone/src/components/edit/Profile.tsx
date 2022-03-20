@@ -1,4 +1,11 @@
-import { ChangeEvent, FormEvent, useEffect, useState, MouseEvent } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useState,
+  MouseEvent,
+  useRef,
+} from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
@@ -66,37 +73,50 @@ const Form = styled.form`
   align-items: center;
 `;
 
-const Profile = () => {
-  useEffect(() => {
-    const getProfile = async () => {
-      const docRef = doc(firebaseDB, "users", uid);
-      const docSnap = await getDoc(docRef);
-      setProfile(docSnap.data());
-    };
-
-    getProfile();
-  }, []);
-
-  const [profile, setProfile] = useState<any>({});
-  const [nickname, setNickname] = useState(profile.nickname);
+const Profile = ({ profile }: any) => {
+  const [nickname, setNickname] = useState("");
   const [message, setMessage] = useState("");
+  const [profileUrl, setProfileUrl] = useState("");
 
-  const params = useParams();
-  const uid = String(params.uid);
+  useEffect(() => {
+    if (profile) {
+      setNickname(profile.nickname);
+      setMessage(profile.message);
+      setProfileUrl(profile.profile);
+    }
+  }, [profile]);
+
+  const imageRef: any = useRef();
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {};
+  const onChangeNickname = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setNickname(value);
+  };
 
-  const onProfileChange = (event: MouseEvent<HTMLButtonElement>) => {};
+  const onChangeMessage = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setMessage(value);
+  };
+
+  const onProfileChange = (event: MouseEvent<HTMLButtonElement>) => {
+    imageRef.current.click();
+  };
 
   return (
     <Wrapper>
       <ProfileWrapper>
+        <input
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
+          ref={imageRef}
+        />
         <ImgButton onClick={onProfileChange}>
-          <Img src={profile.profile} />
+          <Img src={profileUrl} />
         </ImgButton>
         <Form onSubmit={onSubmit}>
           <InputWrapper>
@@ -106,7 +126,7 @@ const Profile = () => {
               value={nickname}
               fontSize="15px"
               fontWeight="bold"
-              onChange={onChange}
+              onChange={onChangeNickname}
             />
           </InputWrapper>
           <InputWrapper>
@@ -115,7 +135,7 @@ const Profile = () => {
               name="message"
               value={message}
               fontSize="13px"
-              onChange={onChange}
+              onChange={onChangeMessage}
             />
           </InputWrapper>
         </Form>

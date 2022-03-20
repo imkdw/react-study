@@ -3,14 +3,11 @@ import {
   FormEvent,
   useEffect,
   useState,
-  MouseEvent,
   useRef,
+  useContext,
 } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { firebaseDB } from "firebaseInstance";
-import { FontawesomPencilIcon, FontawesomCameraIcon } from "Fontawesome";
+import { EditContext } from "./EditContext";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -74,9 +71,10 @@ const Form = styled.form`
 `;
 
 const Profile = ({ profile }: any) => {
-  const [nickname, setNickname] = useState("");
-  const [message, setMessage] = useState("");
-  const [profileUrl, setProfileUrl] = useState("");
+  const context = useContext(EditContext);
+  const { state, actions } = context;
+  const { nickname, message, profileUrl } = state;
+  const { setNickname, setMessage, setProfileUrl } = actions;
 
   useEffect(() => {
     if (profile) {
@@ -86,7 +84,7 @@ const Profile = ({ profile }: any) => {
     }
   }, [profile]);
 
-  const imageRef: any = useRef();
+  const fileInputRef: any = useRef();
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -102,8 +100,28 @@ const Profile = ({ profile }: any) => {
     setMessage(value);
   };
 
-  const onProfileChange = (event: MouseEvent<HTMLButtonElement>) => {
-    imageRef.current.click();
+  const onClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const onProfileChange = async (
+    event: ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
+    const file: FileList | null = event.currentTarget.files;
+    if (file !== null) {
+      if (!file[0].type.match("image/*")) {
+        alert("이미지 파일만 업로드 가능합니다.");
+        return;
+      }
+
+      const theFile = file[0];
+      const reader = new FileReader();
+      reader.addEventListener("load", (e: any) => {
+        const { result } = e.target;
+        setProfileUrl(result);
+      });
+      reader.readAsDataURL(theFile);
+    }
   };
 
   return (
@@ -113,9 +131,10 @@ const Profile = ({ profile }: any) => {
           type="file"
           accept="image/*"
           style={{ display: "none" }}
-          ref={imageRef}
+          ref={fileInputRef}
+          onChange={onProfileChange}
         />
-        <ImgButton onClick={onProfileChange}>
+        <ImgButton onClick={onClick}>
           <Img src={profileUrl} />
         </ImgButton>
         <Form onSubmit={onSubmit}>

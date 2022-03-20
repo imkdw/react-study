@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { firebaseDB } from "firebaseInstance";
 import { doc, getDoc } from "firebase/firestore";
+import EditProvider from "components/edit/EditContext";
 
 const Edit = () => {
   const [profile, setProfile] = useState<any>(null);
@@ -24,8 +25,10 @@ const Edit = () => {
 
   return (
     <Container bgColor="#8d949a">
-      <Header />
-      <Profile profile={profile} />
+      <EditProvider>
+        <Header profile={profile} />
+        <Profile profile={profile} />
+      </EditProvider>
     </Container>
   );
 };

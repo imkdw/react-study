@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import Input from "components/common/Input";
 import Button from "components/common/Button";
-import { firebaseAuth, firebaseDB } from "firebaseInstance";
+import { firebaseAuth, firebaseDB, firebaseStorage } from "firebaseInstance";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
 
 const StyledForm = styled.form`
   width: 244px;
@@ -64,6 +65,9 @@ const RegisterForm = () => {
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const pathRef = ref(firebaseStorage, "profile.png");
+    const downloadUrl = await getDownloadURL(pathRef);
+
     if (password !== rePassword) {
       setError("비밀번호가 서로 같지 않습니다.");
     }
@@ -80,8 +84,7 @@ const RegisterForm = () => {
         nickname: nickname,
         uid: user.uid,
         kakaoID: kakaoID,
-        profile:
-          "https://firebasestorage.googleapis.com/v0/b/kakaotalk-clone-beed5.appspot.com/o/default_profile.svg?alt=media&token=c8d1c684-8f7b-4174-a334-24b9a2568a89",
+        profile: downloadUrl,
         message: "",
       });
       navigate("/chatlist");

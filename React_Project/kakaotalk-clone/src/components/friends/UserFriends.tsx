@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { doc, getDoc } from "firebase/firestore";
-import { firebaseDB } from "firebaseInstance";
 import { Link } from "react-router-dom";
 
 interface ImageWrapperProps {
@@ -72,33 +70,13 @@ const Message = styled.div`
   color: #b4b4b4;
 `;
 
-const StyledLink = styled(Link)``;
-
-const UserFriends = ({ uid }: any) => {
-  const [friends, setFriends] = useState<any>([]);
-
-  useEffect(() => {
-    const getFriend = async () => {
-      const docRef = doc(firebaseDB, "users", uid);
-      const docSnap = await getDoc(docRef);
-      const userFriends = [...docSnap.data()?.friends];
-
-      for (const userFriend of userFriends) {
-        const docRef = doc(firebaseDB, "users", userFriend);
-        const docSnap = await getDoc(docRef);
-        const friendInfo = docSnap.data();
-        setFriends((prev: any) => [friendInfo, ...prev]);
-      }
-    };
-
-    getFriend();
-  }, []);
+const UserFriends = ({ userFriends }: any) => {
   return (
     <Friends>
-      <FriendsCounter>친구 {friends.length}</FriendsCounter>
+      <FriendsCounter>친구 {userFriends.length}</FriendsCounter>
       <FriendsList>
-        {friends.map((friend: any) => (
-          <StyledLink to={`/userinfo/${friend.uid}`} key={friend.uid}>
+        {userFriends.map((friend: any) => (
+          <Link to={`/userinfo/${friend.uid}`} key={friend.uid}>
             <Profile>
               <ImageWrapper width="50px" height="100%">
                 {friend.profile ? (
@@ -116,7 +94,7 @@ const UserFriends = ({ uid }: any) => {
                 <Message>{friend.message}</Message>
               </InfoWrapper>
             </Profile>
-          </StyledLink>
+          </Link>
         ))}
       </FriendsList>
     </Friends>

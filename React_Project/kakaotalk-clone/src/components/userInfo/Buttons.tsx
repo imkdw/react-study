@@ -39,12 +39,12 @@ const Buttons = ({ userObj }: any) => {
             <ButtonText>프로필 수정</ButtonText>
           </>
         ) : (
-          <>
+          <button style={{ height: "100px" }}>
             <button>
               <FontawesomeCommentIcon width="20px" height="20px" color="#fff" />
             </button>
             <ButtonText>1:1 채팅</ButtonText>
-          </>
+          </button>
         )}
       </ChatButtonWrapper>
     </Wrapper>

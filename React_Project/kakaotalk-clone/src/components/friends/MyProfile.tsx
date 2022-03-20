@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { firebaseDB } from "firebaseInstance";
-import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 interface ImageWrapperProps {
@@ -66,38 +64,12 @@ const Message = styled.div`
   color: #b4b4b4;
 `;
 
-interface MyProfileProps {
-  uid: string;
-}
-
-const MyProfile = ({ uid }: MyProfileProps) => {
-  const [myProfile, setMyProfile] = useState<any>({});
-
-  useEffect(() => {
-    const getUser = async () => {
-      const docRef = doc(firebaseDB, "users", uid);
-      try {
-        const docSnap = await getDoc(docRef);
-        const userData = docSnap.data();
-        const userObj = {
-          nickname: userData?.nickname,
-          message: userData?.message,
-          profile: userData?.profile,
-        };
-        setMyProfile(userObj);
-      } catch (error: any) {
-        console.error(error);
-      }
-    };
-
-    getUser();
-  }, [uid]);
-
+const MyProfile = ({ myProfile }: any) => {
   return (
     <>
       <ProfileWrapper>
         <Profile>
-          <StyledLink to={`/userinfo/${uid}`}>
+          <StyledLink to={`/userinfo/${myProfile.uid}`}>
             <ImageWrapper width="60px" height="100%">
               {myProfile.profile ? (
                 <Img src={myProfile.profile} width="50px" height="100%" />

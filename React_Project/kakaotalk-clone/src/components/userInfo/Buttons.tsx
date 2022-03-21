@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { FontawesomeCommentIcon, FontawesomEditIcon } from "Fontawesome";
 import { Link, useParams } from "react-router-dom";
+import { useCallback } from "react";
+import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,9 +27,25 @@ const ButtonText = styled.div`
   color: #fff;
 `;
 
+const ButtonWrapper = styled.div`
+  width: 50px;
+  height: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const Buttons = ({ userObj }: any) => {
   const params = useParams();
   const uid = String(params.uid);
+  const navigate = useNavigate();
+
+  const onStartChat = () => {
+    const roomName = v4();
+    const [user1, user2] = [userObj.uid, uid];
+    navigate(`/chatroom/${roomName}?user1=${user1}&user2=${user2}`);
+  };
 
   return (
     <Wrapper>
@@ -39,12 +58,12 @@ const Buttons = ({ userObj }: any) => {
             <ButtonText>프로필 수정</ButtonText>
           </>
         ) : (
-          <button style={{ height: "100px" }}>
+          <ButtonWrapper onClick={onStartChat}>
             <button>
               <FontawesomeCommentIcon width="20px" height="20px" color="#fff" />
             </button>
             <ButtonText>1:1 채팅</ButtonText>
-          </button>
+          </ButtonWrapper>
         )}
       </ChatButtonWrapper>
     </Wrapper>

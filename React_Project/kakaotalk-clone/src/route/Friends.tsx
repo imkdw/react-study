@@ -37,13 +37,16 @@ const Friends = ({ userObj }: FriendProps) => {
       const docRef = doc(firebaseDB, "users", uid);
       const docSnap = await getDoc(docRef);
       const userFriends = [...docSnap.data()?.friends];
+      const friends: any[] = [];
 
       for (const userFriend of userFriends) {
         const docRef = doc(firebaseDB, "users", userFriend);
         const docSnap = await getDoc(docRef);
         const friendInfo = docSnap.data();
-        setUserFriends((prev: any) => [friendInfo, ...prev]);
+        friends.push(friendInfo);
       }
+
+      setUserFriends(friends);
     };
 
     getUser();

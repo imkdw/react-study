@@ -3,12 +3,22 @@ import AuthRouterNav from "components/AuthRouterNav";
 import { useEffect, useState } from "react";
 import Header from "components/chatList/Header";
 import RoomList from "components/chatList/RoomList";
-import { where, collection, getDoc, query, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { firebaseDB } from "firebaseInstance";
+import styled from "styled-components";
 
 interface ChatListProps {
   userObj: any;
 }
+
+const ErrorMessage = styled.div`
+  font-size: 14px;
+  color: lightgray;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 const ChatList = ({ userObj }: ChatListProps) => {
   const [chatList, setChatList] = useState<any[]>([]);
@@ -26,16 +36,26 @@ const ChatList = ({ userObj }: ChatListProps) => {
       });
 
       setChatList(chatArray);
+
+      return () => {
+        console.log("cleanup func");
+      };
     };
 
     getChatLists();
-  }, []);
+  }, [userObj]);
 
   return (
     <>
       <Contents>
         <Header />
-        <RoomList rooms={chatList} />
+        <>
+          {chatList.length !== 0 ? (
+            <RoomList rooms={chatList} />
+          ) : (
+            <ErrorMessage>채팅방이 없습니다.</ErrorMessage>
+          )}
+        </>
       </Contents>
       <AuthRouterNav />
     </>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Li = styled.li`
   width: 100%;
@@ -41,8 +42,16 @@ const RoomMessage = styled.div`
 `;
 
 const RoomItem = ({ room }: any) => {
+  const navigate = useNavigate();
+
+  const onMoveChatroom = () => {
+    navigate(
+      `/chatroom/${room.roomId}?user1=${room.users[0]}&user2=${room.users[1]}`
+    );
+  };
+
   return (
-    <Li>
+    <Li onClick={onMoveChatroom}>
       <OpponentProfileWrapper>
         <OpponentProfile src={room.opponentProfile} />
       </OpponentProfileWrapper>

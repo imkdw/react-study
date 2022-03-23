@@ -11,6 +11,7 @@ import {
   faArrowLeft,
   faPencil,
   faCamera,
+  faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 
 interface IconProps {
@@ -69,4 +70,8 @@ export const FontawesomPencilIcon = ({ width, height, color }: IconProps) => {
 
 export const FontawesomCameraIcon = ({ width, height, color }: IconProps) => {
   return <FontAwesomeIcon icon={faCamera} style={{ width, height, color }} />;
+};
+
+export const FontawesomPlayIcon = ({ width, height, color }: IconProps) => {
+  return <FontAwesomeIcon icon={faPlay} style={{ width, height, color }} />;
 };

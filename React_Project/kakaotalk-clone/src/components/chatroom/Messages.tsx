@@ -1,6 +1,45 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import { firebaseDB } from "firebaseInstance";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { FontawesomArrowLeftIcon } from "Fontawesome";
+import MessageItem from "./MessageItem";
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 600px;
+  background-color: #b2c7d9;
+`;
+
+const Header = styled.div`
+  width: 100%;
+  height: 50px;
+  background-color: #a9bdce;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
+const ArrowWrapper = styled.div`
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const OpponentName = styled.div`
+  font-size: 16px;
+  color: #5e676e;
+  font-weight: bold;
+`;
+
+const MessageList = styled.ul`
+  width: 100%;
+  height: 510px;
+  background-color: inherit;
+  display: flex;
+  flex-direction: column;
+`;
 
 const Messages = ({ roomName }: any) => {
   const [messages, setMessage] = useState<any[]>([]);
@@ -21,15 +60,26 @@ const Messages = ({ roomName }: any) => {
     getMessages();
   }, []);
   return (
-    <div>
-      {messages.map((message, index) => (
-        <div key={index}>
-          <div>{message.sender}</div>
-          <div>{message.timestamp}</div>
-          <div>{message.text}</div>
-        </div>
-      ))}
-    </div>
+    <Wrapper>
+      <Header>
+        <ArrowWrapper>
+          <button>
+            <FontawesomArrowLeftIcon
+              width="20px"
+              height="20px"
+              color="#5e676e"
+            />
+          </button>
+        </ArrowWrapper>
+        <OpponentName>상대방이름</OpponentName>
+      </Header>
+      <MessageList>
+        <MessageItem />
+        <MessageItem />
+        <MessageItem />
+        <MessageItem />
+      </MessageList>
+    </Wrapper>
   );
 };
 

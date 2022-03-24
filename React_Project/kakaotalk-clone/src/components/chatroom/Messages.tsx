@@ -39,21 +39,21 @@ const MessageList = styled.ul`
   background-color: inherit;
   display: flex;
   flex-direction: column;
+  gap: 5px;
 `;
 
-const Messages = ({ roomName }: any) => {
+const Messages = ({ roomName, currentUser }: any) => {
   const [messages, setMessage] = useState<any[]>([]);
   useEffect(() => {
     // 메세지가 변경될때마다 특정 채팅에서 메세지를 가져오는데 이를 message에다가 넣음
     const getMessages = async () => {
-      const unSub = onSnapshot(doc(firebaseDB, "chats", roomName), (doc) => {
+      onSnapshot(doc(firebaseDB, "chats", roomName), (doc) => {
         const msgs = [...doc.data()?.message];
         const msgObj = msgs.map((msg) => {
           return msg;
         });
 
         setMessage(msgObj);
-        console.log(messages);
       });
     };
 
@@ -74,10 +74,9 @@ const Messages = ({ roomName }: any) => {
         <OpponentName>상대방이름</OpponentName>
       </Header>
       <MessageList>
-        <MessageItem />
-        <MessageItem />
-        <MessageItem />
-        <MessageItem />
+        {messages.map((msg, index) => (
+          <MessageItem msg={msg} key={index} currentUser={currentUser} />
+        ))}
       </MessageList>
     </Wrapper>
   );

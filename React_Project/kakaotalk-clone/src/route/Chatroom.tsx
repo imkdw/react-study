@@ -8,7 +8,6 @@ import SendMessage from "components/chatroom/SendMessage";
 
 const Chatroom = () => {
   const { pathname, search } = useLocation();
-  const [messages, setMessages] = useState<any[]>([]);
 
   // 2명의 유저 목록
   const users = search.replace("?", "").split("&");
@@ -72,7 +71,7 @@ const Chatroom = () => {
 
   return (
     <>
-      <Messages roomName={roomName} />
+      <Messages roomName={roomName} currentUser={user1} />
       <SendMessage />
     </>
   );

@@ -71,7 +71,7 @@ const Chatroom = () => {
 
   return (
     <>
-      <Messages roomName={roomName} currentUser={user1} />
+      <Messages roomName={roomName} currentUser={user1} opponentUser={user2} />
       <SendMessage />
     </>
   );

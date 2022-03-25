@@ -1,4 +1,4 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, getDoc } from "firebase/firestore";
 import { firebaseDB } from "firebaseInstance";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -17,7 +17,6 @@ const Header = styled.div`
   background-color: #a9bdce;
   display: flex;
   align-items: center;
-  gap: 5px;
 `;
 
 const ArrowWrapper = styled.div`
@@ -39,11 +38,11 @@ const MessageList = styled.ul`
   background-color: inherit;
   display: flex;
   flex-direction: column;
-  gap: 5px;
 `;
 
-const Messages = ({ roomName, currentUser }: any) => {
+const Messages = ({ roomName, currentUser, opponentUser }: any) => {
   const [messages, setMessage] = useState<any[]>([]);
+  const [opponentName, setOpponentName] = useState("");
   useEffect(() => {
     // 메세지가 변경될때마다 특정 채팅에서 메세지를 가져오는데 이를 message에다가 넣음
     const getMessages = async () => {
@@ -57,7 +56,14 @@ const Messages = ({ roomName, currentUser }: any) => {
       });
     };
 
+    const getOpponentName = async () => {
+      const opponentRef = doc(firebaseDB, "users", opponentUser);
+      const opponentSnap = await getDoc(opponentRef);
+      setOpponentName(opponentSnap.data()?.nickname);
+    };
+
     getMessages();
+    getOpponentName();
   }, []);
   return (
     <Wrapper>
@@ -71,11 +77,16 @@ const Messages = ({ roomName, currentUser }: any) => {
             />
           </button>
         </ArrowWrapper>
-        <OpponentName>상대방이름</OpponentName>
+        <OpponentName>{opponentName}</OpponentName>
       </Header>
       <MessageList>
         {messages.map((msg, index) => (
-          <MessageItem msg={msg} key={index} currentUser={currentUser} />
+          <MessageItem
+            msg={msg}
+            key={index}
+            currentUser={currentUser}
+            opponentUser={opponentUser}
+          />
         ))}
       </MessageList>
     </Wrapper>

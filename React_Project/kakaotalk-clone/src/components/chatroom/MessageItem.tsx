@@ -51,6 +51,8 @@ const OpponentProfile = styled.div`
 const OpponentInfo = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 50px;
 `;
 
 const OpponentName = styled.div`
@@ -65,7 +67,6 @@ const Img = styled.img`
 
 const MessageItem = ({ msg, currentUser, opponentUser }: any) => {
   const { sender, time, text } = msg;
-  console.log(msg);
   const sendTime = `${new Date(time).getHours()}:${new Date(
     time
   ).getMinutes()}`;
@@ -101,7 +102,7 @@ const MessageItem = ({ msg, currentUser, opponentUser }: any) => {
           </SendText>
         </Li>
       ) : (
-        <Li justifyContent="flex-start" height="70px">
+        <Li justifyContent="flex-start" height="60px">
           <div
             className="wrapper"
             style={{

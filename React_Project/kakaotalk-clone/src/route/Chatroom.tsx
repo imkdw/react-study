@@ -6,7 +6,7 @@ import { firebaseDB } from "firebaseInstance";
 import Messages from "components/chatroom/Messages";
 import SendMessage from "components/chatroom/SendMessage";
 
-const Chatroom = () => {
+const Chatroom = ({ userObj }: any) => {
   const { pathname, search } = useLocation();
 
   // 2명의 유저 목록
@@ -72,7 +72,7 @@ const Chatroom = () => {
   return (
     <>
       <Messages roomName={roomName} currentUser={user1} opponentUser={user2} />
-      <SendMessage />
+      <SendMessage roomName={roomName} currentUser={user1} />
     </>
   );
 };

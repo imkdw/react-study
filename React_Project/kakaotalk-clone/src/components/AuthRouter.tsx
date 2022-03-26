@@ -34,7 +34,10 @@ const NoAuthRouter = ({ isLoggedIn, userObj }: NoAuthRouterProps) => {
               element={<UserInfo userObj={userObj} />}
             />
             <Route path="/edit/:uid" element={<Edit />} />
-            <Route path="/chatroom/*" element={<Chatroom />} />
+            <Route
+              path="/chatroom/*"
+              element={<Chatroom userObj={userObj} />}
+            />
           </>
         ) : (
           <Route path="/" element={<Login />} />

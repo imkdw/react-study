@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { FontawesomPlayIcon } from "Fontawesome";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { firebaseDB } from "firebaseInstance";
 
 const Form = styled.form`
   width: 100%;
@@ -25,7 +27,7 @@ const Button = styled.button`
   justify-content: center;
 `;
 
-const SendMessage = () => {
+const SendMessage = ({ roomName, currentUser }: any) => {
   const [text, setText] = useState("");
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +35,19 @@ const SendMessage = () => {
     setText(value);
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const msgObj = {
+      sender: currentUser,
+      text: text,
+      time: new Date().getTime(),
+    };
+
+    const msgRef = doc(firebaseDB, "chats", roomName);
+    await updateDoc(msgRef, {
+      message: arrayUnion(msgObj),
+    });
+
     setText("");
   };
 

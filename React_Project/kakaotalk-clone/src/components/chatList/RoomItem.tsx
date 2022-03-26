@@ -42,6 +42,8 @@ const RoomMessage = styled.div`
 `;
 
 const RoomItem = ({ room }: any) => {
+  console.log(room);
+
   const navigate = useNavigate();
 
   const onMoveChatroom = () => {

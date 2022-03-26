@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontawesomArrowLeftIcon } from "Fontawesome";
 import MessageItem from "./MessageItem";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -69,13 +70,13 @@ const Messages = ({ roomName, currentUser, opponentUser }: any) => {
     <Wrapper>
       <Header>
         <ArrowWrapper>
-          <button>
+          <Link to="/chatlist">
             <FontawesomArrowLeftIcon
               width="20px"
               height="20px"
               color="#5e676e"
             />
-          </button>
+          </Link>
         </ArrowWrapper>
         <OpponentName>{opponentName}</OpponentName>
       </Header>

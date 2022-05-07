@@ -30,9 +30,6 @@ export const changeField = createAction(
  * login or register가 이에 해당
  */
 
-
-
-
 const initialState = {
   register: {
     username: '',
@@ -45,16 +42,14 @@ const initialState = {
   },
 };
 
-const auth = handleActions({
-  [CHANGE_FIELD]: (state, {payload : {form, key, value}}) => {
-    produce(state, draft => {
-      draft[form][key] = value;
-    })
+const auth = handleActions(
+  {
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }: any) =>
+      produce(state, (draft: any) => {
+        draft[form][key] = value;
+      }),
   },
-  {INITIALIZE_FORM}: (state, payload: {form}) => ({
-    ...state,
-    [form]: initialState[form];
-  })
-})
+  initialState,
+);
 
 export default auth;

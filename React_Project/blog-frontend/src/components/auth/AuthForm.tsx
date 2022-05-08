@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 import Button from '../common/Button';
+import { ChangeEvent, FormEvent } from 'react';
 
 /** 새로운 css 속성을 위해 새로운 버튼 정의 */
 const ButtonWidthMarginTop = styled(Button)`
@@ -51,6 +52,9 @@ const Footer = styled.div`
 
 interface IAuthFormProps {
   type: 'login' | 'register';
+  form: any;
+  onChange(e: ChangeEvent<HTMLInputElement>): void;
+  onSubmit(e: FormEvent<HTMLFormElement>): void;
 }
 
 const textMap = {
@@ -58,23 +62,29 @@ const textMap = {
   register: '회원가입',
 };
 
-const AuthForm = ({ type }: IAuthFormProps) => {
+const AuthForm = ({ type, form, onChange, onSubmit }: IAuthFormProps) => {
+  console.log(form);
+
   const text: string = textMap[type];
 
   return (
     <AuthFormBlock>
       <h3>{text}</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <StyledInput
           autoComplete="username"
           name="username"
           placeholder="아이디"
+          onChange={onChange}
+          value={form.username}
         />
         <StyledInput
           autoCapitalize="new-password"
           name="password"
           placeholder="비밀번호"
           type="password"
+          onChange={onChange}
+          value={form.password}
         />
         {type === 'register' && (
           <StyledInput
@@ -82,6 +92,8 @@ const AuthForm = ({ type }: IAuthFormProps) => {
             name="passwordConfirm"
             placeholder="비밀번호 확인"
             type="password"
+            onChange={onChange}
+            value={form.passwordConfirm}
           />
         )}
         <ButtonWidthMarginTop fullWidth cyan>

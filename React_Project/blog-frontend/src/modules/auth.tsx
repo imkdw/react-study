@@ -25,11 +25,6 @@ export const changeField = createAction(
   }),
 );
 
-/**
- * 초기 폼을 위한 액션
- * login or register가 이에 해당
- */
-
 const initialState = {
   register: {
     username: '',
@@ -48,6 +43,10 @@ const auth = handleActions(
       produce(state, (draft: any) => {
         draft[form][key] = value;
       }),
+    [INITIALIZE_FORM]: (state, { payload: form }: any) => ({
+      ...state,
+      [form]: initialState[form],
+    }),
   },
   initialState,
 );

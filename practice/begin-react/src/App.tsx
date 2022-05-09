@@ -1,13 +1,16 @@
-import { useState } from "react";
-
 const App = () => {
-  const [number, setNumber] = useState(0);
-  const onClick = () => setNumber(number + 1);
+  const mils = [
+    { id: 1, text: "육군" },
+    { id: 2, text: "해군" },
+    { id: 3, text: "공군" },
+  ];
+
   return (
-    <>
-      <div>{number}</div>
-      <button onClick={onClick}>+1</button>
-    </>
+    <ul>
+      {mils.map((mil) => (
+        <li key={mil.id}>{mil.text}</li>
+      ))}
+    </ul>
   );
 };
 

@@ -1,16 +1,12 @@
-const App = () => {
-  const mils = [
-    { id: 1, text: "육군" },
-    { id: 2, text: "해군" },
-    { id: 3, text: "공군" },
-  ];
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList";
 
+const App: React.FC = () => {
   return (
-    <ul>
-      {mils.map((mil) => (
-        <li key={mil.id}>{mil.text}</li>
-      ))}
-    </ul>
+    <>
+      <TodoForm />
+      <TodoList />
+    </>
   );
 };
 

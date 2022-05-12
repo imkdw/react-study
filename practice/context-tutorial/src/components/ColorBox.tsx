@@ -1,11 +1,17 @@
-import { ColorConsumer } from "../contexts/color";
+import ColorContext from "../contexts/color";
+import { useContext } from "react";
+
+type StateType = {
+  color: string;
+  subColor: string;
+};
 
 const ColorBox = () => {
+  const { state } = useContext(ColorContext);
+
   return (
-    // * ColorContext 내부에 있는 Consumer 컴포넌트로 Context의 상태를 가져온다.
-    <ColorConsumer>
-      {/* value에는 ColorContext에서 지정한 기본 상태가 넘어오게된다. */}
-      {({ state }) => (
+    <>
+      {(state: StateType) => (
         <>
           <div
             style={{
@@ -23,7 +29,7 @@ const ColorBox = () => {
           />
         </>
       )}
-    </ColorConsumer>
+    </>
   );
 };
 

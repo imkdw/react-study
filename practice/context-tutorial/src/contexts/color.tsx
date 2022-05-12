@@ -6,7 +6,7 @@ type ColorContextState = {
     color: string;
     subColor: string;
   };
-  action: {
+  actions: {
     setColor: (color: string) => void;
     setSubColor: (subColor: string) => void;
   };
@@ -15,7 +15,7 @@ type ColorContextState = {
 // * Context 생성
 export const ColorContext = createContext<ColorContextState>({
   state: { color: "black", subColor: "red" },
-  action: {
+  actions: {
     setColor: () => {},
     setSubColor: () => {},
   },
@@ -28,7 +28,7 @@ const ColorProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value = {
     state: { color, subColor },
-    action: { setColor, setSubColor },
+    actions: { setColor, setSubColor },
   };
 
   return (

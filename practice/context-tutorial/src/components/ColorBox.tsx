@@ -11,7 +11,7 @@ const ColorBox = () => {
 
   return (
     <>
-      {(state: StateType) => (
+      {(state: StateType) => (  
         <>
           <div
             style={{

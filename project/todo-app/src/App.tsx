@@ -1,5 +1,13 @@
+import Container from "./components/todo/Container";
+import GlobalStyle from "./components/common/GlobalStyle";
+
 const App: React.FC = () => {
-  return <div>Hello</div>;
+  return (
+    <>
+      <GlobalStyle />
+      <Container />
+    </>
+  );
 };
 
 export default App;

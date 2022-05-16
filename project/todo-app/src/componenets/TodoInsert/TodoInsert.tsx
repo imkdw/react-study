@@ -1,7 +1,8 @@
+import { useCallback, useState, ChangeEvent, FormEvent } from "react";
 import { MdAdd } from "react-icons/md";
 import styled from "styled-components";
 
-const StyledTodoInsert = styled.div`
+const StyledTodoInsert = styled.form`
   display: flex;
   background-color: #495057;
 
@@ -41,10 +42,33 @@ const StyledTodoInsert = styled.div`
   }
 `;
 
-const TodoInsert = () => {
+type TodoInsertProps = {
+  onInsert: (text: string) => void;
+};
+const TodoInsert = ({ onInsert }: TodoInsertProps) => {
+  const [value, setValue] = useState("");
+
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.currentTarget.value);
+  }, []);
+
+  const onSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      onInsert(value);
+      setValue("");
+      e.preventDefault();
+    },
+    [onInsert, value]
+  );
+
   return (
-    <StyledTodoInsert>
-      <input type="text" placeholder="할 일을 입력하세요" />
+    <StyledTodoInsert onSubmit={onSubmit}>
+      <input
+        type="text"
+        placeholder="할 일을 입력하세요"
+        onChange={onChange}
+        value={value}
+      />
       <button>
         <MdAdd />
       </button>

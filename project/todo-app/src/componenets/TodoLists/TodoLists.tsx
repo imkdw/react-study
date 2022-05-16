@@ -14,13 +14,20 @@ type todosProps = {
     text: string;
     checked: boolean;
   }[];
+  onRemove: (id: number) => void;
+  onToggle: (id: number) => void;
 };
 
-const TodoLists = ({ todos }: todosProps) => {
+const TodoLists = ({ todos, onRemove, onToggle }: todosProps) => {
   return (
     <StyledTodoLists>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onRemove={onRemove}
+          onToggle={onToggle}
+        />
       ))}
     </StyledTodoLists>
   );

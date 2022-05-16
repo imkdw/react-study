@@ -59,22 +59,20 @@ const StyledTodoItem = styled.li`
 `;
 
 type todoProps = {
-  todo: {
-    id: number;
-    text: string;
-    checked: boolean;
-  };
+  todo: { id: number; text: string; checked: boolean };
+  onRemove: (id: number) => void;
+  onToggle: (id: number) => void;
 };
 
-const TodoItem = ({ todo }: todoProps) => {
-  const { text, checked } = todo;
+const TodoItem = ({ todo, onRemove, onToggle }: todoProps) => {
+  const { text, checked, id } = todo;
   return (
     <StyledTodoItem>
-      <div className={cn("checkbox", { checked })}>
+      <div className={cn("checkbox", { checked })} onClick={() => onToggle(id)}>
         {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         <div className="text">{text}</div>
       </div>
-      <div className="remove">
+      <div className="remove" onClick={() => onRemove(id)}>
         <MdRemoveCircleOutline />
       </div>
     </StyledTodoItem>

@@ -5,6 +5,7 @@ import {
   MdRemoveCircleOutline,
 } from "react-icons/md";
 import cn from "classnames";
+import React from 'react'
 
 const StyledTodoItem = styled.li`
   padding: 1rem;
@@ -79,4 +80,4 @@ const TodoItem = ({ todo, onRemove, onToggle }: todoProps) => {
   );
 };
 
-export default TodoItem;
+export default React.memo(TodoItem);

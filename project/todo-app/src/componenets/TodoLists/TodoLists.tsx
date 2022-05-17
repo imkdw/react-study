@@ -1,5 +1,6 @@
 import TodoItem from "./TodoItem";
 import styled from "styled-components";
+import React from "react";
 
 const StyledTodoLists = styled.ul`
   min-height: 320px;
@@ -33,4 +34,4 @@ const TodoLists = ({ todos, onRemove, onToggle }: todosProps) => {
   );
 };
 
-export default TodoLists;
+export default React.memo(TodoLists);

@@ -1,10 +1,6 @@
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from "recoil";
+import { ChangeEvent } from "react";
+import { RecoilRoot } from "recoil";
+import TextInput from "./components/TextInput";
 
 /**
  * * 1. recoil로 상태관리를 위해서는 RecoilRoot가 필요
@@ -14,7 +10,7 @@ import {
 const App: React.FC = () => {
   return (
     <RecoilRoot>
-      <div>gd</div>
+      <TextInput />
     </RecoilRoot>
   );
 };

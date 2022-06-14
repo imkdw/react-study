@@ -1,19 +1,15 @@
-import LoginForm from "./components/auth/login/LoginForm";
-import { Routes, Route, Link } from "react-router-dom";
-import RegisterForm from "./components/auth/register/RegisterForm";
 import Navigation from "./components/common/Navigation";
 import GlobalStyle from "./components/common/GlobalStyle";
+import { RecoilRoot } from "recoil";
+import MainPage from "./components/main/MainPage";
 
 const App = () => {
   return (
-    <>
+    <RecoilRoot>
       <GlobalStyle />
       <Navigation />
-      <Routes>
-        <Route path="login" element={<LoginForm />} />
-        <Route path="register" element={<RegisterForm />} />
-      </Routes>
-    </>
+      <MainPage />
+    </RecoilRoot>
   );
 };
 

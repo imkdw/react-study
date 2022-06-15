@@ -1,7 +1,6 @@
-import { ChangeEvent } from "react";
-import { useRecoilState, atom } from "recoil";
+import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
-import { v4 } from "uuid";
+import login from "../../../api/login";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -35,50 +34,44 @@ const StyledButton = styled.button`
 `;
 
 const LoginForm = () => {
-  const userIdState = atom<string>({
-    key: v4(),
-    default: "",
+  const [account, setAccount] = useState({
+    userId: "",
+    password: "",
   });
 
-  const passwordState = atom<string>({
-    key: v4(),
-    default: "",
-  });
+  const { userId, password } = account;
 
-  const [userId, setUserId] = useRecoilState<string>(userIdState);
-  const [password, setPassword] = useRecoilState<string>(passwordState);
-
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.currentTarget;
-    if (name === "userId") {
-      console.log(`value : ${value}, userId : ${userId}`);
+    setAccount({
+      ...account,
+      [name]: value,
+    });
+  };
 
-      setUserId(value);
-    } else if (name === "password") {
-      setPassword(value);
-    }
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const response = await login(userId, password);
+    console.log(response);
   };
 
   return (
     <StyledWrapper>
-      <StyledForm>
+      <StyledForm onSubmit={onSubmit}>
         <h1>로그인</h1>
         <StyledInput
           type="text"
           placeholder="아이디"
           name="userId"
-          onChange={onChange}
+          onChange={inputChange}
         />
         <StyledInput
           type="text"
           placeholder="비밀번호"
           name="password"
-          onChange={onChange}
+          onChange={inputChange}
         />
         <StyledButton type="submit">로그인</StyledButton>
-        <div>
-          {userId} {password}
-        </div>
       </StyledForm>
     </StyledWrapper>
   );

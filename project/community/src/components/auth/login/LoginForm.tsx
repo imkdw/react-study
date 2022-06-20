@@ -51,8 +51,7 @@ const LoginForm = () => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const response = await login(userId, password);
-    console.log(response);
+    const response = await login(userId, password);    
   };
 
   return (

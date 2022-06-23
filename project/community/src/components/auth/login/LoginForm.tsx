@@ -53,6 +53,7 @@ const LoginForm = () => {
     event.preventDefault();
     const response = await login(userId, password);
     console.log(`response : ${response}`);
+    console.log(response?.headers);    
   };
 
   return (

@@ -1,4 +1,6 @@
+import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
+import { register } from "../../../api/AuthAPI";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -32,15 +34,75 @@ const StyledButton = styled.button`
 `;
 
 const RegisterForm = () => {
+  const [account, setAccount] = useState({
+    userId: "",
+    password: "",
+    rePassword: "",
+    nickname: "",
+    email: "",
+  });
+
+  const { userId, password, rePassword, nickname, email } = account;
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+    setAccount({
+      ...account,
+      [name]: value,
+    });
+  };
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const response = await register({
+      userId,
+      password,
+      rePassword,
+      nickname,
+      email,
+    });
+    console.log(response);
+  };
+
   return (
     <StyledWrapper>
-      <StyledForm>
+      <StyledForm onSubmit={onSubmit}>
         <h1>회원가입</h1>
-        <StyledInput type="text" placeholder="아이디" />
-        <StyledInput type="text" placeholder="비밀번호" />
-        <StyledInput type="text" placeholder="비밀번호 확인" />
-        <StyledInput type="text" placeholder="이름" />
-        <StyledInput type="text" placeholder="이메일" />
+        <StyledInput
+          type="text"
+          placeholder="아이디"
+          name="userId"
+          value={userId}
+          onChange={onChange}
+        />
+        <StyledInput
+          type="text"
+          placeholder="비밀번호"
+          name="password"
+          value={password}
+          onChange={onChange}
+        />
+        <StyledInput
+          type="text"
+          placeholder="비밀번호 확인"
+          name="rePassword"
+          value={rePassword}
+          onChange={onChange}
+        />
+        <StyledInput
+          type="text"
+          placeholder="이름"
+          name="nickname"
+          value={nickname}
+          onChange={onChange}
+        />
+        <StyledInput
+          type="text"
+          placeholder="이메일"
+          name="email"
+          value={email}
+          onChange={onChange}
+        />
         <StyledButton type="submit">회원가입</StyledButton>
       </StyledForm>
     </StyledWrapper>

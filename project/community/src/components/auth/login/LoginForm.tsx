@@ -1,6 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import login from "../../../api/login";
+import { login } from "../../../api/AuthAPI";
+import { jwtTokenState } from "../../../recoil/community";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -39,6 +41,8 @@ const LoginForm = () => {
     password: "",
   });
 
+  const [jwtToken, setJwtToken] = useRecoilState(jwtTokenState);
+
   const { userId, password } = account;
 
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -51,9 +55,8 @@ const LoginForm = () => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const response = await login(userId, password);
-    console.log(`response : ${response}`);
-    console.log(response?.headers);    
+    const response = await login({ userId, password });
+    console.log(response);
   };
 
   return (

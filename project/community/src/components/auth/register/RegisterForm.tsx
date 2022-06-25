@@ -18,7 +18,7 @@ const StyledForm = styled.form`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: 25px;
 `;
 
 const StyledInput = styled.input`
@@ -33,6 +33,14 @@ const StyledButton = styled.button`
   border: none;
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 10px;
+  width: 100px;
+  height: 10px;
+  border: 1px solid;
+`;
+
 const RegisterForm = () => {
   const [account, setAccount] = useState({
     userId: "",
@@ -40,6 +48,14 @@ const RegisterForm = () => {
     rePassword: "",
     nickname: "",
     email: "",
+  });
+
+  const [errMsg, setErrMsg] = useState({
+    userIdErrMsg: "",
+    passwordErrMsg: "",
+    rePasswordErrMsg: "",
+    nicknameErrMsg: "",
+    emailErrMsg: "",
   });
 
   const { userId, password, rePassword, nickname, email } = account;
@@ -76,14 +92,14 @@ const RegisterForm = () => {
           onChange={onChange}
         />
         <StyledInput
-          type="text"
+          type="password"
           placeholder="비밀번호"
           name="password"
           value={password}
           onChange={onChange}
         />
         <StyledInput
-          type="text"
+          type="password"
           placeholder="비밀번호 확인"
           name="rePassword"
           value={rePassword}

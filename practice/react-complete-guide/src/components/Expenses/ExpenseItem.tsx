@@ -4,13 +4,12 @@ import "./ExponseItem.css";
 import { useState } from "react";
 
 interface IExpenseProps {
-  id: string;
   title: string;
   amount: number;
   date: Date;
 }
 
-function ExpenseItem({ id, title, amount, date }: IExpenseProps) {
+function ExpenseItem({ title, amount, date }: IExpenseProps) {
   const [title1, setTitle1] = useState(title);
 
   const clickHandler = () => {

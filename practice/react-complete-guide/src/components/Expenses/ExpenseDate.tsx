@@ -1,10 +1,11 @@
 import "./ExpenseDate.css";
 
 const ExpenseDate = ({ date }: { date: Date }) => {
-  const month = date.toLocaleString("en-us", { month: "long" });
-  const day = date.toLocaleString("en-us", { day: "2-digit" });
+  const month = date.toLocaleString("ko-kr", { month: "long" });
+  const day = date.toLocaleString("ko-kr", { day: "2-digit" });
   const year = date.getFullYear();
 
+  console.log(month, date, year);
   return (
     <div className="expense-date">
       <div className="expense-date__month">{month}</div>

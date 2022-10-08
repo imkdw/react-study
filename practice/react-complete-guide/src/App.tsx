@@ -1,21 +1,27 @@
 import { useState } from "react";
-import Button from "./components/UI/Button";
-import AddUser from "./components/Users/AddUser";
-import UserLists from "./components/Users/UserLists";
-import { IUser } from "./types/user";
+import Cart from "./components/Cart/Cart";
+import Header from "./components/Layout/Header";
+import Meals from "./components/Meals/Meals";
 
 const App = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
+  const [cartIsShown, setCartisShown] = useState(false);
 
-  const addUserHandler = (username: string, age: number) => {
-    setUsers([...users, { username, age, id: Math.random().toString() }]);
+  const showCartHandler = () => {
+    setCartisShown(true);
+  };
+
+  const hideCartHandler = () => {
+    setCartisShown(false);
   };
 
   return (
-    <div>
-      <AddUser onAddUser={addUserHandler} />
-      <UserLists users={users} />
-    </div>
+    <>
+      {cartIsShown && <Cart onHideCart={hideCartHandler} />}
+      <Header onShowCart={showCartHandler} />
+      <main>
+        <Meals />
+      </main>
+    </>
   );
 };
 

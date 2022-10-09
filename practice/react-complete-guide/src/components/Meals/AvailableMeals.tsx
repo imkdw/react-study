@@ -43,7 +43,9 @@ const AvailiableMeals = () => {
         <ul>
           {DUMMY_MEALS.map((meal: IMeal) => {
             const { id, name, description, price } = meal;
-            return <MealItem id={id} name={name} description={description} price={price} />;
+            return (
+              <MealItem key={id} id={id} name={name} description={description} price={price} />
+            );
           })}
         </ul>
       </Card>

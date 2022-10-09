@@ -1,13 +1,6 @@
 import React from "react";
 
-interface IDefaultValue {
-  items: any[];
-  totalAmount: number;
-  addItem(item: any): void;
-  removeItem(id: string): void;
-}
-
-const defaultValue: IDefaultValue = {
+const defaultValue: any = {
   items: [],
   totalAmount: 0,
   addItem: (item: any) => {},
